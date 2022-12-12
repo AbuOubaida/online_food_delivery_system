@@ -24,7 +24,7 @@
                                 {{--                For Error message Showing--}}
                                 @if ($errors->any())
                                     <div class="col-12">
-                                        <div class="alert alert-danger alert-dismissible fade show z-index-1 position-absolute w-auto error-alert" role="alert">
+                                        <div class="alert alert-danger alert-dismissible fade show z-index-1 w-auto error-alert" role="alert">
                                             @foreach ($errors->all() as $error)
                                                 <div>{{$error}}</div>
                                             @endforeach
@@ -48,7 +48,7 @@
                                 {{--                For Insert message Showing--}}
                                 @if (session('error'))
                                     <div class="col-12">
-                                        <div class="alert alert-danger alert-dismissible fade show z-index-1 position-absolute w-auto error-alert" role="alert">
+                                        <div class="alert alert-danger alert-dismissible fade show z-index-1 w-auto error-alert" role="alert">
                                             <div>{{session('error')}}</div>
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -58,7 +58,7 @@
                                 @endif
                                 @if (session('warning'))
                                     <div class="col-12">
-                                        <div class="alert alert-warning alert-dismissible fade show z-index-1 position-absolute w-auto error-alert" role="alert">
+                                        <div class="alert alert-warning alert-dismissible fade show z-index-1 w-auto error-alert" role="alert">
                                             <div>{{session('warning')}}</div>
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -73,25 +73,25 @@
                                     <div class="row mb-3">
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="fname" id="inputFirstName" type="text" placeholder="Enter your first name" />
+                                                <input class="form-control" name="fname" id="inputFirstName" type="text" placeholder="Enter your first name" value="{{old('fname')}}"/>
                                                 <label for="inputFirstName">First name</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" name="lname" id="inputLastName" type="text" placeholder="Enter your last name" />
+                                                <input class="form-control" name="lname" id="inputLastName" type="text" placeholder="Enter your last name" value="{{old('lname')}}"/>
                                                 <label for="inputLastName">Last name</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" name="email" id="inputEmail" type="email" placeholder="name@example.com" />
+                                                <input class="form-control" name="email" id="inputEmail" type="email" placeholder="name@example.com" value="{{old('email')}}"/>
                                                 <label for="inputEmail">Email address</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input class="form-control" name="phone" id="phone" type="number" placeholder="phone" />
+                                                <input class="form-control" name="phone" id="phone" type="number" placeholder="phone" value="{{old('phone')}}"/>
                                                 <label for="phone">Phone</label>
                                             </div>
                                         </div>
@@ -99,25 +99,25 @@
                                     <div class="row mb-3">
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="home" id="home" type="text" placeholder="home" />
-                                                <label for="home">Home</label>
+                                                <input class="form-control" name="home" id="home" type="number" placeholder="home" value="{{old('home')}}"/>
+                                                <label for="home">Home No.</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="village" id="village" type="text" placeholder="village" />
+                                                <input class="form-control" name="village" id="village" type="text" placeholder="village" value="{{old('village')}}"/>
                                                 <label for="village">Village</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="word_no" id="word_no" type="number" placeholder="word no" />
+                                                <input class="form-control" name="word_no" id="word_no" type="number" placeholder="word no" value="{{old('word_no')}}"/>
                                                 <label for="word_no">Word No.</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="union" id="union" type="text" placeholder="union" />
+                                                <input class="form-control" name="union" id="union" type="text" placeholder="union" value="{{old('union')}}"/>
                                                 <label for="union">Union</label>
                                             </div>
                                         </div>
@@ -126,34 +126,34 @@
                                     <div class="row md-3">
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="upazila" id="upazila" type="text" placeholder="upazila" />
+                                                <input class="form-control" name="upazila" id="upazila" type="text" placeholder="upazila" value="{{old('upazila')}}"/>
                                                 <label for="upazila">Upazila</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="district" id="district" type="text" placeholder="district" />
+                                                <input class="form-control" name="district" id="district" type="text" placeholder="district" value="{{old('district')}}"/>
                                                 <label for="district">District</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="zip_code" id="zip_code" type="number" placeholder="zip code" />
+                                                <input class="form-control" name="zip_code" id="zip_code" type="number" placeholder="zip code" value="{{old('zip_code')}}"/>
                                                 <label for="zip_code">Zip Code</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="division" id="division" type="text" placeholder="division" />
+                                                <input class="form-control" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}"/>
                                                 <label for="division">Division</label>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row md-3">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" list="icons" name="country" id="country" >
+                                                <input class="form-control" list="icons" name="country" id="country" value="{{old('country')}}">
                                                 <datalist id="icons">
                                                     @foreach($countries as $c)
                                                         <option value="{{$c->nicename}}"></option>
@@ -163,15 +163,28 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
+                                                <select class="form-control" name="roles" id="roles">
+                                                    <option> please select your role </option>
+                                                @if(count($roles)>0)
+                                                    @foreach($roles as $r)
+                                                    <option value="{{$r->name}}" @if(old('roles') == $r->name) selected @endif>{{$r->display_name}}</option>
+                                                    @endforeach
+                                                @endif
+                                                </select>
+                                                <label for="roles">User Roles</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Create a password" />
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
+                                                <input class="form-control" id="inputPasswordConfirm" name="password_confirmation" type="password" placeholder="Confirm password" />
                                                 <label for="inputPasswordConfirm">Confirm Password</label>
                                             </div>
                                         </div>
@@ -183,7 +196,7 @@
                                 </form>
                             </div>
                             <div class="card-footer text-center py-3">
-                                <div class="small"><a href="login.html">Have an account? Go to login</a></div>
+                                <div class="small"><a href="{{route('login')}}">Have an account? Go to login</a></div>
                             </div>
                         </div>
                     </div>
@@ -207,6 +220,8 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="{{url("js/scripts.js")}}"></script>
 </body>
 </html>
