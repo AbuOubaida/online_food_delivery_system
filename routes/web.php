@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteController;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,7 @@ Route::middleware('auth')->group(function () {
     //--------------------End 2.1 Redirect Auth of role page-----------------
     #.2.2.Group For admin role access++++++++++++++++++++++++++++++++++++++++
     Route::group(['middleware' => ['auth','role:superadmin'],'prefix' => 'admin'],function(){
-        Route::controller(\App\Http\Controllers\AdminDashboardController::class)->group(function (){
+        Route::controller(AdminDashboardController::class)->group(function (){
             Route::match(['get','post'],'dashboard','index')->name('admin.dashboard');
 
         });
