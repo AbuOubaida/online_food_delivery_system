@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\vendor;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\user;
 use Illuminate\Http\Request;
 
-class AdminDashboardController extends Controller
+class VendorDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'admin','title'=>'Dashboard'];
-        return view('back-end.admin.dashboard',compact('headerData'));
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Dashboard'];
+        return view('back-end.vendor.dashboard',compact('headerData'));
     }
 
     /**
@@ -42,10 +43,10 @@ class AdminDashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(user $user)
     {
         //
     }
@@ -53,10 +54,10 @@ class AdminDashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(user $user)
     {
         //
     }
@@ -65,10 +66,10 @@ class AdminDashboardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, user $user)
     {
         //
     }
@@ -76,10 +77,10 @@ class AdminDashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(user $user)
     {
         //
     }

@@ -7,12 +7,12 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>@isset($headerData){{$headerData['app']}} || {{$headerData['role']}} || {{$headerData['title']}} @endisset</title>
-    <x-admin._header_link/>
+    <x-vendor._header_link/>
 </head>
 <body class="sb-nav-fixed">
-<x-admin._header/>
+<x-vendor._header/>
 <div id="layoutSidenav">
-    <x-admin._sidebar/>
+    <x-vendor._sidebar/>
     <div id="layoutSidenav_content">
         {{--                For Error message Showing--}}
         @if ($errors->any())
@@ -60,9 +60,9 @@
             </div>
         @endif
         @yield('content')
-        <x-admin._footer/>
+        <x-vendor._footer/>
     </div>
 </div>
-<x-admin._footer_link/>
+<x-vendor._footer_link/>
 </body>
 </html>
