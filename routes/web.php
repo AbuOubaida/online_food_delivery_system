@@ -42,8 +42,11 @@ Route::middleware('auth')->group(function () {
         });
         Route::group(['prefix'=>'product'],function (){
             Route::controller(VendorProductController::class)->group(function (){
-                Route::match(['get','post'],'add','create')->name('vendor.add.product');
+                Route::match(['get','post'],'add-product','create')->name('vendor.add.product');
                 Route::match(['get'],'list','show')->name('vendor.list.product');
+                Route::match(['get','post'],'add-category','createCategory')->name('vendor.add.category');
+                Route::match(['get'],'list-category','showCategory')->name('vendor.list.category');
+
             });
         });
     });
