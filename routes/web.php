@@ -46,6 +46,9 @@ Route::middleware('auth')->group(function () {
                 Route::match(['get'],'list','show')->name('vendor.list.product');
                 Route::match(['get','post'],'add-category','createCategory')->name('vendor.add.category');
                 Route::match(['get'],'list-category','showCategory')->name('vendor.list.category');
+                Route::match(['get','post'],'edit-category/{categoryID}','editCategory')->name('vendor.edit.category');
+                Route::match(['get'],'view-category/{categoryID}','viewCategory')->name('vendor.view.category');
+                Route::delete('delete-category','destroyCategory')->name('vendor.delete.category');
 
             });
         });
