@@ -11725,3 +11725,9 @@ body {
     background: none;
     border: none;
 }
+.text-warning {
+    color: #ffb600;
+}
+.text-info {
+    color: #481eff!important;
+}

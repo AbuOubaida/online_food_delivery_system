@@ -22,7 +22,7 @@
                                             <th>No</th>
                                             <th>Category Name</th>
                                             <th>For Vendor</th>
-                                            <th>Create at</th>
+                                            <th>Create by</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -32,7 +32,7 @@
                                             <th>No</th>
                                             <th>Category Name</th>
                                             <th>For Vendor</th>
-                                            <th>Create at</th>
+                                            <th>Create by</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>

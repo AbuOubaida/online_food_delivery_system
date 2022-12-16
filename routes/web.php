@@ -2,14 +2,16 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\vendor\VendorDashboardController;
 use App\Http\Controllers\vendor\VendorProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+#.1. For root directory for general user/Home page+++++++++++++++++++++++++++++++
+Route::controller(HomeController::class)->group(function (){
+    Route::match(['get','post'],'/','index')->name('root');
 });
 
 
@@ -44,6 +46,10 @@ Route::middleware('auth')->group(function () {
             Route::controller(VendorProductController::class)->group(function (){
                 Route::match(['get','post'],'add-product','create')->name('vendor.add.product');
                 Route::match(['get'],'list','show')->name('vendor.list.product');
+                Route::match(['get','post'],'edit-product/{productID}','edit')->name('vendor.edit.product');
+                Route::match(['get'],'view-product/{productID}','viewProduct')->name('vendor.view.product');
+                Route::delete('delete-product','destroy')->name('vendor.delete.product');
+
                 Route::match(['get','post'],'add-category','createCategory')->name('vendor.add.category');
                 Route::match(['get'],'list-category','showCategory')->name('vendor.list.category');
                 Route::match(['get','post'],'edit-category/{categoryID}','editCategory')->name('vendor.edit.category');

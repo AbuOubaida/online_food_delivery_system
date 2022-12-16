@@ -4,20 +4,24 @@ namespace App\Http\Controllers\vendor;
 
 use App\Http\Controllers\Controller;
 use App\Models\category;
+use App\Models\Product;
 use App\Models\user;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class VendorProductController extends Controller
 {
+    private $productImage = "assets/back-end/vendor/product/";
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -28,9 +32,16 @@ class VendorProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Add Product'];
+        if ($request->isMethod('post'))
+        {
+            return $this->store($request);
+        }else{
+            $categories = category::where('status',1)->get();
+            return view('back-end.vendor.products.add-new',compact('headerData','categories'));
+        }
     }
 
     /**
@@ -41,7 +52,81 @@ class VendorProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $is_slider = 0;
+        $img_name = null;
+        $request->validate([
+            'pname' => ['required', 'string', 'max:255'],
+            'price' => ['required','numeric'],
+            'p_quantity' => ['required','numeric'],
+            'p_details' => ['nullable','sometimes','string'],
+            'p_category' => ['required','numeric'],// category ID
+            'p_status' => ['required','numeric'],
+            'o_status' => ['required','numeric'],// Product offer status
+            'p_image' => ['mimes:jpeg,jpg,png,gif|sometimes|nullable|max:10000'],// Product Image maximum size 10MB
+            'is_slider' => ['nullable','sometimes'],// Product Image if show on slider
+            'offer_percentage' => ['nullable','sometimes','numeric'],
+            'offer_quantity' => ['nullable','sometimes','numeric'],
+            'offer_start_time' => ['nullable','sometimes'],
+            'offer_end_time' => ['nullable','sometimes'],
+        ]);
+        try {
+            extract($request->post());
+            if ($request->hasFile('p_image'))
+            {
+                extract($request->file());
+                if (@$p_image)
+                {
+                    try {
+                        $ext = $p_image->getClientOriginalExtension();
+                        $img_name = str_replace(' ','_',$pname).'_'.rand(111,99999).'_'.$p_image->getClientOriginalName();
+                        $imageUploadPath = $this->productImage.$img_name;
+
+                        Image::make($p_image)->save($imageUploadPath);
+                    }catch (\Throwable $exception)
+                    {
+                        return back()->with('error',$exception->getMessage())->withInput();
+                    }
+                }
+            }
+            if (Product::where('p_name',$pname)->where('p_price',$price)->where('category_id',$p_category)->first() != null)
+            {
+                return back()->with('warning','Product already exist in database')->withInput();
+            }
+            if ($p_status >1 || $p_status < 0)
+            {
+                return back()->with('error','Invalid product status')->withInput();
+            }
+            if (isset($o_status))
+            {
+                if ($offer_quantity > $p_quantity)
+                {
+                    return back()->with('error','Offer quantity are not gather then product quantity')->withInput();
+                }
+            }
+            $user = Auth::user();
+            Product::create([
+                'p_status'  =>  $p_status,
+                'offer_status' => $o_status,
+                'vendor_id' => $user->id,
+                'creater_id' => $user->id,
+                'updater_id' => $user->id,
+                'category_id' => $p_category,
+                'p_name' => $pname,
+                'p_price' => $price,
+                'p_details' => $p_details,
+                'p_quantity' => $p_quantity,
+                'p_image' => $img_name,
+                'p_slider_image' => $is_slider,
+                'offer_percentage' => $offer_percentage,
+                'offer_quantity' => $offer_percentage,
+                'offer_start_time' => $offer_start_time,
+                'offer_end_time' => $offer_end_time,
+            ]);
+            return back()->with('success','Data save successfully');
+        }catch (\Throwable $exception)
+        {
+            return back()->with('error',$exception->getMessage())->withInput();
+        }
     }
 
     /**
@@ -50,9 +135,19 @@ class VendorProductController extends Controller
      * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(user $user)
+    public function show()
     {
-        //
+        $user = Auth::user();
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Product list'];
+        $products = Product::leftJoin('users as v','v.id','products.vendor_id')// v as for product vendor info from user
+            ->leftJoin('users as c','c.id','products.creater_id')// c as product creater info from user
+            ->leftJoin('users as up','up.id','products.updater_id')// up as product updater info from user
+            ->leftJoin('categories as cate','cate.id','products.category_id')//cate as categories table
+            ->select('v.name as vendor_name','c.name as creater_name','up.name as updater_name','cate.c_name as category_name','products.*')
+            ->where("products.vendor_id", $user->id)->get();
+
+//        dd($products);
+        return \view('back-end.vendor.products.show-list',compact('headerData','products'));
     }
 
     /**
@@ -61,9 +156,25 @@ class VendorProductController extends Controller
      * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(user $user)
+    public function edit(Request $request,$productID)
     {
-        //
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Add Product'];
+        if ($request->isMethod('post'))
+        {
+            return $this->update($request);
+        }
+        else{
+            try {
+                $user = Auth::user();
+                $categories = category::where('status',1)->get();
+                $product = Product::where('id',$productID)->where('vendor_id',$user->id)->first();
+
+                return \view('back-end.vendor.products.edit',compact('categories','product','headerData'));
+            }catch (\Throwable $exception)
+            {
+                return back()->with('error',$exception->getMessage());
+            }
+        }
     }
 
     /**
@@ -73,9 +184,107 @@ class VendorProductController extends Controller
      * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, user $user)
+    public function update(Request $request)
     {
-        //
+        $is_slider = 0;
+        $request->validate([
+            'product_id' => ['required', 'numeric'],
+            'pname' => ['required', 'string', 'max:255'],
+            'price' => ['required','numeric'],
+            'p_quantity' => ['required','numeric'],
+            'p_details' => ['nullable','sometimes','string'],
+            'p_category' => ['required','numeric'],// category ID
+            'p_status' => ['required','numeric'],
+            'o_status' => ['required','numeric'],// Product offer status
+            'p_image' => ['mimes:jpeg,jpg,png,gif|sometimes|nullable|max:10000'],// Product Image maximum size 10MB
+            'is_slider' => ['nullable','sometimes'],// Product Image if show on slider
+            'offer_percentage' => ['nullable','sometimes','numeric'],
+            'offer_quantity' => ['nullable','sometimes','numeric'],
+            'offer_start_time' => ['nullable','sometimes'],
+            'offer_end_time' => ['nullable','sometimes'],
+        ]);
+        try {
+            extract($request->post());
+            $user = Auth::user();
+            $product = Product::where('id',$product_id)->where('vendor_id',$user->id)->first();
+            if ($product == null)
+            {
+                return back()->with('error','Unauthorized Error!')->withInput();
+            }
+            $img_name = $product->p_image;
+            if ($request->hasFile('p_image'))
+            {
+                extract($request->file());
+
+                if (@$p_image)
+                {
+                    try {
+                        $ext = $p_image->getClientOriginalExtension();
+                        $img_name = str_replace(' ','_',$pname).'_'.rand(111,99999).'_'.$p_image->getClientOriginalName();
+                        $imageUploadPath = $this->productImage.$img_name;
+                        if ($product->p_image && file_exists($name = $this->productImage.$product->p_image))// old file delete if exist
+                        {
+                            unlink(public_path($name));
+                        }
+                        Image::make($p_image)->save($imageUploadPath);
+                    }catch (\Throwable $exception)
+                    {
+                        return back()->with('error',$exception->getMessage())->withInput();
+                    }
+                }
+            }
+            if (Product::where('id','!=',$product_id)->where('category_id',$p_category)->where('p_name',$pname)->where('p_price',$price)->first() != null)
+            {
+                return back()->with('warning','Product already exist in database')->withInput();
+            }
+            if ($p_status >1 || $p_status < 0)
+            {
+                return back()->with('error','Invalid product status')->withInput();
+            }
+            if (isset($o_status))
+            {
+                if ($offer_quantity > $p_quantity)
+                {
+                    return back()->with('error','Offer quantity are not gather then product quantity')->withInput();
+                }
+            }
+            Product::where('id',$product_id)->where("vendor_id",$user->id)->update([
+                'p_status'  =>  $p_status,
+                'offer_status' => $o_status,
+                'vendor_id' => $user->id,
+                'creater_id' => $user->id,
+                'updater_id' => $user->id,
+                'category_id' => $p_category,
+                'p_name' => $pname,
+                'p_price' => $price,
+                'p_details' => $p_details,
+                'p_quantity' => $p_quantity,
+                'p_image' => $img_name,
+                'p_slider_image' => $is_slider,
+                'offer_percentage' => $offer_percentage,
+                'offer_quantity' => $offer_quantity,
+                'offer_start_time' => $offer_start_time,
+                'offer_end_time' => $offer_end_time,
+            ]);
+            return back()->with('success','Data update successfully');
+        }catch (\Throwable $exception)
+        {
+            return back()->with('error',$exception->getMessage())->withInput();
+        }
+    }
+    public function viewProduct($productID)
+    {
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'View Single Product'];
+        try {
+            $user = Auth::user();
+            $categories = category::where('status',1)->get();
+            $product = Product::where('id',$productID)->where('vendor_id',$user->id)->first();
+
+            return \view('back-end.vendor.products.view',compact('categories','product','headerData'));
+        }catch (\Throwable $exception)
+        {
+            return back()->with('error',$exception->getMessage());
+        }
     }
 
     /**
