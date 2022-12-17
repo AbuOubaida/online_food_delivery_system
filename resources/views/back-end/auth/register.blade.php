@@ -154,11 +154,6 @@
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
                                                 <input class="form-control" list="icons" name="country" id="country" value="{{old('country')}}">
-                                                <datalist id="icons">
-                                                    @foreach($countries as $c)
-                                                        <option value="{{$c->nicename}}"></option>
-                                                    @endforeach
-                                                </datalist>
                                                 <label for="country">Country</label>
                                             </div>
                                         </div>
