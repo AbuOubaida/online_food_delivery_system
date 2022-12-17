@@ -54,6 +54,7 @@ class VendorProductController extends Controller
     {
         $is_slider = 0;
         $img_name = null;
+//        data validation
         $request->validate([
             'pname' => ['required', 'string', 'max:255'],
             'price' => ['required','numeric'],
@@ -70,7 +71,8 @@ class VendorProductController extends Controller
             'offer_end_time' => ['nullable','sometimes'],
         ]);
         try {
-            extract($request->post());
+            extract($request->post()); // make html name attr. to php variable
+            // If product has image then
             if ($request->hasFile('p_image'))
             {
                 extract($request->file());
@@ -87,15 +89,19 @@ class VendorProductController extends Controller
                         return back()->with('error',$exception->getMessage())->withInput();
                     }
                 }
-            }
+            }//Image end
+
+            // Duplicate product check start
             if (Product::where('p_name',$pname)->where('p_price',$price)->where('category_id',$p_category)->first() != null)
             {
                 return back()->with('warning','Product already exist in database')->withInput();
-            }
+            }// Duplicate product check end
+
             if ($p_status >1 || $p_status < 0)
             {
                 return back()->with('error','Invalid product status')->withInput();
             }
+
             if (isset($o_status))
             {
                 if ($offer_quantity > $p_quantity)
@@ -103,7 +109,8 @@ class VendorProductController extends Controller
                     return back()->with('error','Offer quantity are not gather then product quantity')->withInput();
                 }
             }
-            $user = Auth::user();
+            $user = Auth::user();// store login user data
+//            Insert data here [Insert into Products ('p_status') values($p_status)]
             Product::create([
                 'p_status'  =>  $p_status,
                 'offer_status' => $o_status,

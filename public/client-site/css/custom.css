@@ -1,0 +1,19 @@
+.view-product-btn {
+    background: #814100;
+    padding: 10px 20px;
+    color: white;
+}
+.d-inline-block {
+    display: inline-block!important;
+}
+.logo-text {
+    color: #c59d5f;
+}
+@media screen and (min-width: 992px) {
+    .logo-text {
+        margin-top: 26px;
+    }
+    .product-img-list {
+        height: 200px!important;
+    }
+}

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\client\ClientProductController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteController;
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 Route::controller(HomeController::class)->group(function (){
     Route::match(['get','post'],'/','index')->name('root');
 });
+Route::controller(ClientProductController::class)->group(function (){
+    Route::match(['get','post'],'single-view-product/{productSingleID}','index')->name('client.single.product.view');
+    Route::match(['get','post'],'shop','show')->name('client.product.list');
+    Route::match(['get','post'],'add-to-cart/{PID}','addToCart')->name('name.add.to.cart');
+    Route::match(['get','post'],'shop-cart','viewCart')->name('view.cart');
+    Route::patch('update-cart','updateCart')->name('update.cart');
+    Route::delete('remove-from-cart','deleteCart')->name('delete.cart');
+});
 
 
 #.2. Group for Authenticate User Access+++++++++++++++++++++++++++++++++++++++++
@@ -23,6 +32,7 @@ Route::middleware('auth')->group(function () {
     #.2.1.For Redirect Auth of role page++++++++++++++++++++++++++++++++++++++
     Route::get('route-controller',[RouteController::class,'index'])->name('route.controller');
     //--------------------End 2.1 Redirect Auth of role page-----------------
+
     #.2.2.Group For admin role access++++++++++++++++++++++++++++++++++++++++
     Route::group(['middleware' => ['auth','role:superadmin'],'prefix' => 'admin'],function(){
         Route::controller(AdminDashboardController::class)->group(function (){
@@ -37,15 +47,17 @@ Route::middleware('auth')->group(function () {
         });
 
     });
+
     #.2.3.Group For vendor role access++++++++++++++++++++++++++++++++++++
     Route::group(['middleware' => ['auth','role:vendor'],'prefix' => 'vendor'],function (){
         Route::controller(VendorDashboardController::class)->group(function (){
             Route::match(['get','post'],'dashboard','index')->name('vendor.dashboard');
         });
+
         Route::group(['prefix'=>'product'],function (){
             Route::controller(VendorProductController::class)->group(function (){
-                Route::match(['get','post'],'add-product','create')->name('vendor.add.product');
-                Route::match(['get'],'list','show')->name('vendor.list.product');
+                Route::match(['get','post'],'add-product','create')->name('vendor.add.product'); //url like localhost/vendor/product/add-product
+                Route::match(['get'],'list','show')->name('vendor.list.product'); //url like localhost/vendor/product/list
                 Route::match(['get','post'],'edit-product/{productID}','edit')->name('vendor.edit.product');
                 Route::match(['get'],'view-product/{productID}','viewProduct')->name('vendor.view.product');
                 Route::delete('delete-product','destroy')->name('vendor.delete.product');
