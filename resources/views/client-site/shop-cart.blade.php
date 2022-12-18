@@ -78,8 +78,8 @@
                                 <td class="cart-product-price" data-th="Price">BDT {{$details['price']}}</td>
                                 <td class="cart-product-quantity">
                                     <div class="product-quantity" data-th="Quantity">
-                                        <input width="100" type="number" value="{{ $details['quantity'] }}" id="pro1-qunt">
-                                        <div class="col-xs-12 col-sm-6 col-md-6 text-right" data-th="">
+                                        <input width="100" type="number" value="{{ $details['quantity'] }}" class="quantity" id="pro1-qunt">
+                                        <div class="col-xs-12 col-sm-6 col-md-6" data-th="">
                                             <button class="btn btn--secondary update-cart" data-id="{{ $id }}">update</button>
                                         </div>
                                     </div>
@@ -102,12 +102,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12  col-md-6 mb-30-xs mb-30-sm">
-                <div class="cart-shiping">
-                    <h4 class="text-info">Only cash on delivery is available</h4>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12  col-md-6">
+            <div class="col-xs-12 col-sm-12  col-md-12">
                 <div class="cart-total-amount">
                     <h6>Cart Totals :</h6>
                     <ul class="list-unstyled">
@@ -115,10 +110,42 @@
                         <li>Shipping :<span class="pull-right text-right">Free Shipping</span></li>
                         <li>Order Total :<span class="pull-right text-right">BDT {{($total)}}</span></li>
                     </ul>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-right">
-                            <a class="btn btn--primary" href="#">Checkout</a>
-                        </div>
+                    <div class="contact-form">
+                        @if($user = \Illuminate\Support\Facades\Auth::user())
+                            <form action="{{route("order.checkout")}}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <h4>Delivery Information</h4>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="customer_name" id="name" placeholder="Name:" required value="@isset($user->name) {{$user->name}} @endisset">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="address" id="last" placeholder="Address" required value="Heme: {{$user->home}}, village: {{$user->village}}, upazila: {{$user->upazila}}, district: {{$user->district}}, division: {{$user->division}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="email" class="form-control" name="email" id="email" value="{{$user->email}}" placeholder="Email:" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="phone" id="phone" value="{{$user->phone}}" placeholder="Phone:" required>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p>Please select your payment option</p>
+                                        <input type="radio" id="bkash" name="payment" value="1">
+                                        <label for="bkash">BKash</label><br>
+                                        <input type="radio" id="cash" name="payment" value="2" checked>
+                                        <label for="css">Cash</label><br>
+                                        <input type="submit" value="Checkout" class="btn btn--primary">
+                                    </div>
+                                </div>
+                            </form>
+                        @else
+                        <p>Please select your payment option</p>
+                        <input type="radio" id="bkash" name="payment" value="1">
+                        <label for="bkash">BKash</label><br>
+                        <input type="radio" id="cash" name="payment" value="2" checked>
+                        <label for="css">Cash</label><br>
+                            <a href="{{route('order.checkout')}}" class="btn btn--primary">Checkout</a>
+                        @endif
                     </div>
 
                 </div>

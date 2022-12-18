@@ -14,10 +14,10 @@ class routeController extends Controller
             return redirect('admin/dashboard');
         } elseif (Auth::user()->hasRole('user')) {
             return redirect('user/dashboard');
-        } elseif (Auth::user()->hasRole('vendor')) {
-            return redirect('vendor/dashboard');
-        }elseif (Auth::user()->hasRole('messenger')) {
-            return redirect('messenger/dashboard');
+        } elseif (Auth::user()->hasRole('restaurant')) {
+            return redirect('restaurant/dashboard');
+        }elseif (Auth::user()->hasRole('delivery_person')) {
+            return redirect('delivery_person/dashboard');
         }
         return view('/');
     }

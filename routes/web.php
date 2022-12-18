@@ -21,6 +21,9 @@ Route::controller(ClientProductController::class)->group(function (){
     Route::match(['get','post'],'shop-cart','viewCart')->name('view.cart');
     Route::patch('update-cart','updateCart')->name('update.cart');
     Route::delete('remove-from-cart','deleteCart')->name('delete.cart');
+    Route::middleware('auth')->group(function (){
+        Route::match(['get','post'],'checkout','checkOut')->name('order.checkout');
+    });
 });
 
 
@@ -49,7 +52,7 @@ Route::middleware('auth')->group(function () {
     });
 
     #.2.3.Group For vendor role access++++++++++++++++++++++++++++++++++++
-    Route::group(['middleware' => ['auth','role:vendor'],'prefix' => 'vendor'],function (){
+    Route::group(['middleware' => ['auth','role:restaurant'],'prefix' => 'restaurant'],function (){
         Route::controller(VendorDashboardController::class)->group(function (){
             Route::match(['get','post'],'dashboard','index')->name('vendor.dashboard');
         });
@@ -68,6 +71,13 @@ Route::middleware('auth')->group(function () {
                 Route::match(['get'],'view-category/{categoryID}','viewCategory')->name('vendor.view.category');
                 Route::delete('delete-category','destroyCategory')->name('vendor.delete.category');
 
+            });
+
+            Route::controller(\App\Http\Controllers\vendor\orderController::class)->group(function (){
+                Route::get('new-order-list','newOrder')->name('new.order.list');
+                Route::get('del-order-list','delOrder')->name('del.order.list');
+                Route::get('new-order-delivery/{oID}','orderDelivery')->name('order.delivery');
+                Route::post('update-order-delivery','updateOrderDelivery')->name('update.order');
             });
         });
     });

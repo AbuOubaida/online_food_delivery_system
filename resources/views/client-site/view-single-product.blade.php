@@ -60,14 +60,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="product-action clearfix">
-                            <div class="product-quantity pull-left pull-none-xs">
-                                <span class="qua">Quantity:</span>
-                                <span> <a href="#"><i class="fa fa-minus"></i></a>
-                                    <input type="text" value="2" id="pro-qunt" readonly>
-                                    <a href="#"><i class="fa fa-plus"></i></a> </span>
-                            </div>
+
                             <div class="product-cta text-center-xs">
-                                <a class="btn btn--primary" href="#">add to cart</a>
+                                <a class="btn btn--primary" href="{{route('name.add.to.cart',['PID'=>$product->id])}}">add to cart</a>
                             </div>
                         </div>
                     </div>

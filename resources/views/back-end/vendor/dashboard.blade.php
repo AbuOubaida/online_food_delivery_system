@@ -2,7 +2,7 @@
 @section('content')
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Vendor Dashboard</h1>
+            <h1 class="mt-4">Restaurant Dashboard</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">Vendor Dashboard</li>
             </ol>

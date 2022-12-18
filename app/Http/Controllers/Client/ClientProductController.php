@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\order;
 use App\Models\product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientProductController extends Controller
 {
@@ -80,6 +83,7 @@ class ClientProductController extends Controller
             if (!$cart)
             {
                 $cart[$product_id] = [
+                    'p_id' => $product->id,
                     'name' => $product->p_name,
                     'quantity' => 1,
                     'price' => $product->p_price,
@@ -97,6 +101,7 @@ class ClientProductController extends Controller
                 return back()->with('success','Product added to cart successfully');
             }
             $cart[$product_id] = [
+                'p_id' => $product->id,
                 'name' => $product->p_name,
                 'quantity' => 1,
                 'price' => $product->p_price,
@@ -152,6 +157,46 @@ class ClientProductController extends Controller
 
             session()->flash('success', 'Product removed successfully');
         }
+    }
+
+    public function checkOut(Request $request)
+    {
+        if ($request->isMethod('post'))
+        {
+            try {
+                extract($request->post());
+                $cID = Auth::user()->id;
+                $orderID = rand(0, 99999);
+                $cart = session()->get('cart');
+                foreach(session('cart') as $id => $details)
+                {
+                    $product = product::where('id',$details['p_id'])->first();
+                    order::create([
+                        'order_id' => $orderID,
+                        'customer_id' => $cID,
+                        'products_id' => $product['id'],
+                        'restaurant_id' => $product['vendor_id'],
+                        'delivery_address' => $address,
+                        'c_phone' => $phone,
+                        'c_email' => $email,
+                        'order_status' => 1,
+                        'order_quantity' => $details['quantity'],
+                        'price' => ($details['quantity'] * $details['price']),
+                        'payment_method' => $payment,
+                    ]);
+                }
+                session()->forget(['cart']);
+                return redirect()->route('login')->with('success','Order successfully!');
+            }catch (\Throwable $exception)
+            {
+                back();
+            }
+
+        }
+        else{
+            return redirect()->route('view.cart');
+        }
+
     }
 
 

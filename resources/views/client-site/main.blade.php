@@ -16,6 +16,50 @@
 
 <div id="wrapper" class="wrapper clearfix">
     <x-client._header_nav /> {{--<header navigation section>--}} <!--Components from views -->
+    @if ($errors->any())
+        <div class="col-12">
+            <div class="alert alert-danger alert-dismissible fade show z-index-1 w-auto error-alert right-0" role="alert">
+                @foreach ($errors->all() as $error)
+                    <div>{{$error}}</div>
+                @endforeach
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    @endif
+    {{--                For Insert message Showing--}}
+    @if (session('success'))
+        <div class="col-12">
+            <div class="alert alert-success alert-dismissible fade show z-index-1 right-0 w-auto error-alert" role="alert">
+                <div>{{session('success')}}</div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    @endif
+    {{--                For Insert message Showing--}}
+    @if (session('error'))
+        <div class="col-12">
+            <div class="alert alert-danger alert-dismissible fade show z-index-1 right-0 w-auto error-alert" role="alert">
+                <div>{{session('error')}}</div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    @endif
+    @if (session('warning'))
+        <div class="col-12">
+            <div class="alert alert-warning alert-dismissible fade show z-index-1 right-0 w-auto error-alert" role="alert">
+                <div>{{session('warning')}}</div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    @endif
     @yield('content') <!-- all page load here-->
     <div class="clearfix"></div>
     <x-client._footer/> <!--Components from views -->
@@ -27,7 +71,7 @@
         e.preventDefault();
         var ele = $(this);
         $.ajax({
-            url: '{{ url('update-cart') }}',
+            url: '{{ route('update.cart') }}',
             method: "patch",
             data: {_token: '{{ csrf_token() }}', id: ele.attr("data-id"), quantity: ele.parents("tr").find(".quantity").val()},
             success: function (response) {

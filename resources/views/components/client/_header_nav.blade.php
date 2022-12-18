@@ -84,7 +84,7 @@
             <div class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
                 <ul class="nav navbar-nav nav-pos-right navbar-left">
                     <li>
-                        <a href="{{route('client.product.list')}}"  class="menu-item">shop</a>
+                        <a href="{{route('client.product.list')}}"  class="menu-item">Menu</a>
                     </li>
                     <li>
                         <a class="menu-item" href="{{route('login')}}">Login</a>
@@ -99,7 +99,7 @@
             <div class="collapse navbar-collapse pull-right" id="navbar-collapse-mobile">
                 <ul class="nav navbar-nav nav-pos-right navbar-left hidden-lg hidden-md">
                     <li class="has-dropdown mega-dropdown active">
-                        <a href="#" class="menu-item">home</a>
+                        <a href="{{route("root")}}" class="menu-item">home</a>
                     </li>
 
                     <li class="has-dropdown">
@@ -110,20 +110,17 @@
                         <a href="about.html" class="menu-item">About</a>
                     </li>
 
-                    <li>
-                        <a class="menu-item" href="gallery.html">gallery</a>
-                    </li>
 
 
                     <li class="has-dropdown">
-                        <a href="shop-products.html" class="menu-item">shop</a>
+                        <a href="{{route('client.product.list')}}" class="menu-item">Menu</a>
                     </li>
                     <li>
-                        <a class="menu-item" href="#">Login</a>
+                        <a class="menu-item" href="{{route('login')}}">Login</a>
                     </li>
 
                     <li>
-                        <a href="#"  class="menu-item">Register</a>
+                        <a href="{{route('register')}}"  class="menu-item">Register</a>
                     </li>
                 </ul>
             </div>

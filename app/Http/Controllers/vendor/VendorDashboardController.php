@@ -18,7 +18,7 @@ class VendorDashboardController extends Controller
      */
     public function index()
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Dashboard'];
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'restaurant','title'=>'Dashboard'];
         return view('back-end.vendor.dashboard',compact('headerData'));
     }
 
