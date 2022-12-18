@@ -18,14 +18,14 @@ class ClientProductController extends Controller
      */
     public function index($productID)
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'Client','title'=>'Single Product View'];
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'Client','title'=>'Single Product View'];//page title[optional]
         $pageInfo = ['rootRoute'=>'root','root'=>'Home','parent'=>'Shop','parentRoute'=>'client.product.list','this'=>'Single Product'];
         $product = Product::leftJoin('users as v','v.id','products.vendor_id')// v as for product vendor info from user
         ->leftJoin('users as c','c.id','products.creater_id')// c as product creater info from user
         ->leftJoin('users as up','up.id','products.updater_id')// up as product updater info from user
         ->leftJoin('categories as cate','cate.id','products.category_id')//cate as categories table
         ->select('v.name as vendor_name','c.name as creater_name','up.name as updater_name','cate.c_name as category_name','products.*')->where("products.p_status", 1)->where('products.id',$productID)->first();
-        return view('client-site.view-single-product',compact('headerData','product','pageInfo'));
+        return view('client-site.view-single-product',compact('headerData','product','pageInfo')); // view from resources folder.
     }
 
     /**
@@ -186,7 +186,7 @@ class ClientProductController extends Controller
                     ]);
                 }
                 session()->forget(['cart']);
-                return redirect()->route('login')->with('success','Order successfully!');
+                return redirect()->route('my.order.list')->with('success','Order successfully!');
             }catch (\Throwable $exception)
             {
                 back();

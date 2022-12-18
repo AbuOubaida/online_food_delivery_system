@@ -152,8 +152,13 @@ class AdminUserController extends Controller
      * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(user $user)
+    public function destroy(Request $request)
     {
-        //
+        extract($request->post());
+        $id = $user_id;
+        if (user::where('id',$id)->delete())
+            return back()->with('success','Data delete Successfully!');
+        else
+            return back()->with('error','Data delete not possible');
     }
 }

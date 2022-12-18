@@ -62,7 +62,7 @@ class RegisteredUserController extends Controller
         try {
             extract($request->post());
             $user = User::create([
-                'status' => 0,
+                'status' => 1,
                 'fname' => $fname,
                 'lname' => $lname,
                 'name' => $fname.' '.$lname,

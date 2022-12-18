@@ -54,8 +54,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @php($total = 0)
                 @if(session('cart'))
-                    @php($total = 0)
+
                     @foreach(session('cart') as $id => $details)
                             <?php
                             $total += $details['price'] * $details['quantity']

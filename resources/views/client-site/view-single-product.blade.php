@@ -39,6 +39,7 @@
         </div>
     </div>
 </section>
+{{--product section--}}
 <section id="product" class="shop shop-product bg-gray pb-60">
     <div class="container">
         <div class="row">
@@ -83,85 +84,7 @@
 {{--                        <li>Brand : <span>Book</span></li>--}}
                     </ul>
                 </div>
-                <div class="product-related shop-categories">
-                    <div class="product-related-title">
-                        <h5>Related Products</h5>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-4">
-                            <div class="product-item">
-                                <div class="product--img">
-                                    <img src="assets/images/shop/grid/1.jpg" alt="Product" />
-                                    <div class="product--hover">
-                                        <div class="product--action">
-                                            <a href="#">Add To Cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="divider--shape-1down"></div>
-                                </div>
-                                <div class="product--content">
-                                    <div class="product--type">
-                                        <span>Light</span> - <span>Mexican</span> - <span>Organic</span>
-                                    </div>
-                                    <div class="product--title">
-                                        <h3><a href="#">Grilled American Fillet</a></h3>
-                                    </div>
-                                    <div class="product--price">
-                                        <span>$24.95</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-4">
-                            <div class="product-item">
-                                <div class="product--img">
-                                    <img src="assets/images/shop/grid/2.jpg" alt="Product" />
-                                    <div class="product--hover">
-                                        <div class="product--action">
-                                            <a href="#">Add To Cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="divider--shape-1down"></div>
-                                </div>
-                                <div class="product--content">
-                                    <div class="product--type">
-                                        <span>Low Carb</span> - <span>Fresh</span>
-                                    </div>
-                                    <div class="product--title">
-                                        <h3><a href="#">Roast Sea Trout</a></h3>
-                                    </div>
-                                    <div class="product--price">
-                                        <span>$38.95</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-4">
-                            <div class="product-item">
-                                <div class="product--img">
-                                    <img src="assets/images/shop/grid/3.jpg" alt="Product" />
-                                    <div class="product--hover">
-                                        <div class="product--action">
-                                            <a href="#">Add To Cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="divider--shape-1down"></div>
-                                </div>
-                                <div class="product--content">
-                                    <div class="product--type">
-                                        <span>Nut Free</span> - <span>Sweet</span> - <span>Fresh</span>
-                                    </div>
-                                    <div class="product--title">
-                                        <h3><a href="#">Grilled Seafood Paella</a></h3>
-                                    </div>
-                                    <div class="product--price">
-                                        <span>$34.95</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

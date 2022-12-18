@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
             Route::controller(AdminUserController::class)->group(function (){
                 Route::match(['get','post'],'add','create')->name('admin.add.user');
                 Route::match(['get'],'list','show')->name('admin.list.user');
+                Route::delete('delete-user','destroy')->name('admin.delete.user');
             });
         });
 
@@ -79,6 +80,17 @@ Route::middleware('auth')->group(function () {
                 Route::get('new-order-delivery/{oID}','orderDelivery')->name('order.delivery');
                 Route::post('update-order-delivery','updateOrderDelivery')->name('update.order');
             });
+        });
+    });
+
+//    for user role
+    Route::group(['middleware' => ['auth','role:user'],'prefix' => 'user'],function (){
+        Route::controller(\App\Http\Controllers\user\UserDashboardController::class)->group(function (){
+            Route::match(['get','post'],'dashboard','index')->name('user.dashboard');
+        });
+
+        Route::controller(\App\Http\Controllers\user\OrderController::class)->group(function (){
+            Route::get('my-order-list','myOrder')->name('my.order.list');
         });
     });
 });

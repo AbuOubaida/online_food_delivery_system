@@ -64,8 +64,8 @@
                                                         <form action="{{route('vendor.delete.product')}}" method="post" class="d-inline-block">
                                                             {!! method_field('delete') !!}
                                                             {!! csrf_field() !!}
-                                                            <input type="hidden" name="category_id" value="{{$p->id}}">
-                                                            <button class="btn-style-none d-inline-block text-danger" onclick="return confirm('Are you sure delete this Apply Category?')" type="submit">Delete</button>
+                                                            <input type="hidden" name="product_id" value="{{$p->id}}">
+                                                            <button class="btn-style-none d-inline-block text-danger" onclick="return confirm('Are you sure delete this Product?')" type="submit">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>

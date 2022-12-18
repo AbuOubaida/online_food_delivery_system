@@ -53,9 +53,14 @@
                                                     <td>{{$ul->email}}</td>
                                                     <td>{{$ul->phone}}</td>
                                                     <td>
-                                                        <a href="" class="text-primary">View</a>
-                                                        <a href="" class="text-success">Edit</a>
-                                                        <a href="" class="text-danger">Delete</a>
+{{--                                                        <a href="" class="text-primary">View</a>--}}
+{{--                                                        <a href="" class="text-success">Edit</a>--}}
+                                                        <form action="{{route('admin.delete.user')}}" method="post" class="d-inline-block">
+                                                            {!! method_field('delete') !!}
+                                                            {!! csrf_field() !!}
+                                                            <input type="hidden" name="user_id" value="{{$ul->id}}">
+                                                            <button class="btn-style-none d-inline-block text-danger" onclick="return confirm('Are you sure delete this User?')" type="submit">Delete</button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach

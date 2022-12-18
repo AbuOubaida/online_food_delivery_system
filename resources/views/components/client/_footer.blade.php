@@ -31,8 +31,8 @@
                 <div class="col-xs-12 col-sm-3 col-md-4">
                     <div class="footer--widget-content">
                         <h3>Contact us</h3>
-                        <p class="mb-0">Main Email: bijoy721726@gmail.com</p>
-                        <p class="mb-0">Phone: 01783087145</p>
+                        <p class="mb-0">Main Email: example@gmail.com</p>
+                        <p class="mb-0">Phone: 01245752156</p>
                     </div>
                 </div>
             </div>

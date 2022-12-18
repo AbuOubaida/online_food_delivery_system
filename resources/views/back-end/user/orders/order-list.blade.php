@@ -1,4 +1,4 @@
-@extends('back-end.vendor.main')
+@extends('back-end.user.main')
 @section('content')
     <main>
         <div class="container-fluid px-4">
@@ -25,10 +25,8 @@
                                             <th>customer name</th>
                                             <th>order quantity</th>
                                             <th>price</th>
-                                            <th>phone</th>
-                                            <th>email</th>
+                                            <th>Status</th>
                                             <th>address</th>
-                                            <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
@@ -39,10 +37,8 @@
                                             <th>customer</th>
                                             <th>quantity</th>
                                             <th>price</th>
-                                            <th>phone</th>
-                                            <th>email</th>
+                                            <th>Status</th>
                                             <th>address</th>
-                                            <th>Action</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
@@ -58,15 +54,8 @@
                                                     <td class="text-capitalize"> {{$o->customer_name}}</td>
                                                     <td>{{$o->order_quantity}}</td>
                                                     <td>BDT {{$o->price}}</td>
-                                                    <td>{{$o->c_phone}}</td>
-                                                    <td>{{$o->c_email}}</td>
+                                                    <td>@if($o->order_complete_status == 0) <spen class="text-warning">Pending</spen> @else <span class="text-success">Complete</span> @endif</td>
                                                     <td>{{$o->delivery_address}}</td>
-                                                    @if($o->order_complete_status == 0)
-                                                    <td>
-                                                        <a href="{{route('order.delivery',['oID'=>$o->id])}}" class="text-success"> Delivery</a>
-
-                                                    </td>
-                                                    @endif
                                                 </tr>
                                             @endforeach
                                         @endif

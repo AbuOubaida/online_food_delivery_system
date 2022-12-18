@@ -300,9 +300,14 @@ class VendorProductController extends Controller
      * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(user $user)
+    public function destroy(Request $request)
     {
-        //
+        extract($request->post());
+        $id = $product_id;
+        if (product::where('id',$id)->where('vendor_id',Auth::user()->id)->delete())
+            return back()->with('success','Data delete Successfully!');
+        else
+            return back()->with('error','Data delete not possible');
     }
 
     // Product Category Start here
