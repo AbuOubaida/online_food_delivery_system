@@ -8,11 +8,11 @@
                     </li>
 
                     <li class="">
-                        <a href="contacts.html" class="menu-item">Contact Us</a>
+                        <a href="{{route('contact')}}" class="menu-item">Contact Us</a>
                     </li>
 
                     <li class="">
-                        <a href="about.html" class="menu-item">About</a>
+                        <a href="{{route("about")}}" class="menu-item">About</a>
                     </li>
                 </ul>
             </div>
@@ -103,11 +103,11 @@
                     </li>
 
                     <li class="has-dropdown">
-                        <a href="contacts.html" class="menu-item">Contact Us</a>
+                        <a href="{{route("contact")}}" class="menu-item">Contact Us</a>
                     </li>
 
                     <li class="has-dropdown">
-                        <a href="about.html" class="menu-item">About</a>
+                        <a href="{{route("about")}}" class="menu-item">About</a>
                     </li>
 
 

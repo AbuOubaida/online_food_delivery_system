@@ -36,4 +36,14 @@ class HomeController extends Controller
         }
 
     }
+    public function about()
+    {
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'Client','title'=>'about Page'];
+        return view('client-site.about',compact('headerData'));
+    }
+    public function contact()
+    {
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'Client','title'=>'Contact Page'];
+        return view('client-site.contact',compact('headerData'));
+    }
 }

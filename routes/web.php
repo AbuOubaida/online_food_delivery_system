@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 #.1. For root directory for general user/Home page+++++++++++++++++++++++++++++++
 Route::controller(HomeController::class)->group(function (){
     Route::match(['get','post'],'/','index')->name('root');
+    Route::match(['get','post'],'about','about')->name('about');
+    Route::match(['get','post'],'contact','contact')->name('contact');
 });
 Route::controller(ClientProductController::class)->group(function (){
     Route::match(['get','post'],'single-view-product/{productSingleID}','index')->name('client.single.product.view');
@@ -53,7 +55,7 @@ Route::middleware('auth')->group(function () {
     });
 
     #.2.3.Group For vendor role access++++++++++++++++++++++++++++++++++++
-    Route::group(['middleware' => ['auth','role:restaurant'],'prefix' => 'restaurant'],function (){
+    Route::group(['middleware' => ['auth','role:vendor'],'prefix' => 'vendor'],function (){
         Route::controller(VendorDashboardController::class)->group(function (){
             Route::match(['get','post'],'dashboard','index')->name('vendor.dashboard');
         });

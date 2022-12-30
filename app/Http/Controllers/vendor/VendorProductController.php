@@ -34,7 +34,7 @@ class VendorProductController extends Controller
      */
     public function create(Request $request)
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'restaurant','title'=>'Add Product'];
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Add Product'];
         if ($request->isMethod('post'))
         {
             return $this->store($request);
@@ -145,7 +145,7 @@ class VendorProductController extends Controller
     public function show()
     {
         $user = Auth::user();
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'restaurant','title'=>'Product list'];
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Product list'];
         $products = Product::leftJoin('users as v','v.id','products.vendor_id')// v as for product vendor info from user
             ->leftJoin('users as c','c.id','products.creater_id')// c as product creater info from user
             ->leftJoin('users as up','up.id','products.updater_id')// up as product updater info from user
@@ -165,7 +165,7 @@ class VendorProductController extends Controller
      */
     public function edit(Request $request,$productID)
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'restaurant','title'=>'Add Product'];
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Add Product'];
         if ($request->isMethod('post'))
         {
             return $this->update($request);
@@ -281,7 +281,7 @@ class VendorProductController extends Controller
     }
     public function viewProduct($productID)
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'restaurant','title'=>'View Single Product'];
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'View Single Product'];
         try {
             $user = Auth::user();
             $categories = category::where('status',1)->get();
@@ -313,7 +313,7 @@ class VendorProductController extends Controller
     // Product Category Start here
     public function createCategory(Request $request)
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'restaurant','title'=>'Add Product Category'];
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Add Product Category'];
         if ($request->isMethod('post'))
         {
             return $this->storeCategory($request);
@@ -351,7 +351,7 @@ class VendorProductController extends Controller
 
     public function showCategory()
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'restaurant','title'=>'Product Category List'];
+        $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Product Category List'];
         $categories = category::leftJoin('users as v','v.id','categories.vendor_id')->leftJoin('users as c','c.id','categories.creater_id')->select('v.name as vendor_name','c.name as creater_name','categories.*')->where('categories.vendor_id',Auth::user()->id)->orderBY('categories.id','desc')->get();// v as vendor and c as creater
 
         return \view('back-end.vendor.category.show-list',compact('headerData','categories'));
@@ -376,7 +376,7 @@ class VendorProductController extends Controller
             return $this->updateCategory($request);
         }else{
             try {
-                $headerData = ['app'=>'Online Food Delivery System','role'=>'restaurant','title'=>'Product Category List'];
+                $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Product Category List'];
                 $category = category::leftJoin('users as v','v.id','categories.vendor_id')->leftJoin('users as c','c.id','categories.creater_id')->select('categories.id','categories.c_name as category_name','categories.c_description as category_description','categories.status')->where('categories.vendor_id',Auth::user()->id)->where('categories.id',$categoryID)->first();// v as vendor and c as creater
                 return \view('back-end.vendor.category.edit',compact('headerData','category'));
             }catch (\Throwable $exception)
