@@ -118,8 +118,10 @@ class AdminUserController extends Controller
     {
         $headerData = ['app'=>'Online Food Delivery System','role'=>'admin','title'=>'User List'];
         $AuthUser = Auth::user();
-        $userList = user::leftJoin('role_user as r_user','users.id','=','r_user.user_id')->leftJoin('roles as r','r_user.role_id','r.id')->where('users.id','!=',$AuthUser->id)->select('r.name as role_name','r.id as role_id','users.*')->get();
-//        dd($userList);
+        $userList = user::leftJoin('role_user as r_user','users.id','=','r_user.user_id')->leftJoin('roles as r','r_user.role_id','r.id')->where('users.id','!=',$AuthUser->id)->where(function ($query) use ($AuthUser) {
+            $query->where('users.district',$AuthUser->district);
+            $query->orWhere('users.upazila',$AuthUser->upazila);
+            })->select('r.name as role_name','r.id as role_id','users.*')->get();
         return view('back-end.admin.users.show-list',compact('userList','headerData'));
     }
 

@@ -34,12 +34,13 @@ class VendorProductController extends Controller
      */
     public function create(Request $request)
     {
+        $user = Auth::user();
         $headerData = ['app'=>'Online Food Delivery System','role'=>'vendor','title'=>'Add Product'];
         if ($request->isMethod('post'))
         {
             return $this->store($request);
         }else{
-            $categories = category::where('status',1)->get();
+            $categories = category::where('status',1)->where('vendor_id',$user->id)->get();
             return view('back-end.vendor.products.add-new',compact('headerData','categories'));
         }
     }

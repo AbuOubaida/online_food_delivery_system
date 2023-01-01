@@ -6,6 +6,8 @@ use App\Http\Controllers\client\ClientProductController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\user\OrderController;
+use App\Http\Controllers\user\UserDashboardController;
 use App\Http\Controllers\vendor\VendorDashboardController;
 use App\Http\Controllers\vendor\VendorProductController;
 use Illuminate\Support\Facades\Route;
@@ -38,8 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('route-controller',[RouteController::class,'index'])->name('route.controller');
     //--------------------End 2.1 Redirect Auth of role page-----------------
 
-    #.2.2.Group For admin role access++++++++++++++++++++++++++++++++++++++++
-    Route::group(['middleware' => ['auth','role:superadmin'],'prefix' => 'admin'],function(){
+    #.2.2.Group For Super Admin role access++++++++++++++++++++++++++++++++++++++++
+    Route::group(['middleware' => ['auth','role:superadmin'],'prefix' => 'superadmin'],function(){
         Route::controller(AdminDashboardController::class)->group(function (){
             Route::match(['get','post'],'dashboard','index')->name('admin.dashboard');
         });
@@ -54,7 +56,23 @@ Route::middleware('auth')->group(function () {
 
     });
 
-    #.2.3.Group For vendor role access++++++++++++++++++++++++++++++++++++
+    #.2.3.Group For admin role access++++++++++++++++++++++++++++++++++++++++
+    Route::group(['middleware' => ['auth','role:admin'],'prefix' => 'admin'],function(){
+        Route::controller(AdminDashboardController::class)->group(function (){
+            Route::match(['get','post'],'dashboard','index')->name('admin.dashboard');
+        });
+
+        Route::group(['prefix'=>'user'],function (){
+            Route::controller(AdminUserController::class)->group(function (){
+                Route::match(['get','post'],'add','create')->name('admin.add.user');
+                Route::match(['get'],'list','show')->name('admin.list.user');
+                Route::delete('delete-user','destroy')->name('admin.delete.user');
+            });
+        });
+
+    });
+
+    #.2.4.Group For vendor role access++++++++++++++++++++++++++++++++++++
     Route::group(['middleware' => ['auth','role:vendor'],'prefix' => 'vendor'],function (){
         Route::controller(VendorDashboardController::class)->group(function (){
             Route::match(['get','post'],'dashboard','index')->name('vendor.dashboard');
@@ -85,13 +103,13 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-//    for user role
+    #.2.5.Group For user role access
     Route::group(['middleware' => ['auth','role:user'],'prefix' => 'user'],function (){
-        Route::controller(\App\Http\Controllers\user\UserDashboardController::class)->group(function (){
+        Route::controller(UserDashboardController::class)->group(function (){
             Route::match(['get','post'],'dashboard','index')->name('user.dashboard');
         });
 
-        Route::controller(\App\Http\Controllers\user\OrderController::class)->group(function (){
+        Route::controller(OrderController::class)->group(function (){
             Route::get('my-order-list','myOrder')->name('my.order.list');
         });
     });
