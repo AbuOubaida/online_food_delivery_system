@@ -7,9 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Online Food Delivery System Registration Page</title>
     <link href="{{url("css/styles.css")}}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+
+
 </head>
 <body class="bg-primary">
 <div id="layoutAuthentication">
@@ -97,6 +101,53 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
+{{--                                        Country--}}
+                                        <div class="col-md-3">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" list="icons" name="country" id="country" value="{{old('country')}}" onchange="return Obj.country(this)">
+                                                <datalist id="icons">
+                                                    @foreach($countries as $c)
+                                                        <option value="{{$c->nicename}}"></option>
+                                                    @endforeach
+                                                </datalist>
+                                                <label for="country">Country</label>
+                                            </div>
+                                        </div>
+{{--                                        Devision--}}
+                                        <div class="col-md-3">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}"/>
+                                                <label for="division">Division</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" name="district" id="district" type="text" placeholder="district" value="{{old('district')}}"/>
+                                                <label for="district">District</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" name="upazila" id="upazila" type="text" placeholder="upazila" value="{{old('upazila')}}"/>
+                                                <label for="upazila">Upazila</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row md-3">
+                                        <div class="col-md-3">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" name="zip_code" id="zip_code" type="number" placeholder="zip code" value="{{old('zip_code')}}"/>
+                                                <label for="zip_code">Zip Code</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" name="union" id="union" type="text" placeholder="union" value="{{old('union')}}"/>
+                                                <label for="union">Union</label>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
                                                 <input class="form-control" name="home" id="home" type="number" placeholder="home" value="{{old('home')}}"/>
@@ -109,52 +160,14 @@
                                                 <label for="village">Village</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="word_no" id="word_no" type="number" placeholder="word no" value="{{old('word_no')}}"/>
-                                                <label for="word_no">Word No.</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="union" id="union" type="text" placeholder="union" value="{{old('union')}}"/>
-                                                <label for="union">Union</label>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                    <div class="row md-3">
-                                        <div class="col-md-3">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="upazila" id="upazila" type="text" placeholder="upazila" value="{{old('upazila')}}"/>
-                                                <label for="upazila">Upazila</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="district" id="district" type="text" placeholder="district" value="{{old('district')}}"/>
-                                                <label for="district">District</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="zip_code" id="zip_code" type="number" placeholder="zip code" value="{{old('zip_code')}}"/>
-                                                <label for="zip_code">Zip Code</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}"/>
-                                                <label for="division">Division</label>
-                                            </div>
-                                        </div>
                                     </div>
                                     <br>
                                     <div class="row md-3">
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" list="icons" name="country" id="country" value="{{old('country')}}">
-                                                <label for="country">Country</label>
+                                                <input class="form-control" name="word_no" id="word_no" type="number" placeholder="word no" value="{{old('word_no')}}"/>
+                                                <label for="word_no">Word No.</label>
                                             </div>
                                         </div>
 
@@ -214,9 +227,11 @@
         </footer>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>--}}
 <script src="{{url("js/scripts.js")}}"></script>
+<script src="{{url("js/custom.js")}}" type="text/javascript"></script>
 </body>
 </html>

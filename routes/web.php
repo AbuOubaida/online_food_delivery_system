@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AjaxRequestController;
 use App\Http\Controllers\client\ClientProductController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -18,6 +19,15 @@ Route::controller(HomeController::class)->group(function (){
     Route::match(['get','post'],'about','about')->name('about');
     Route::match(['get','post'],'contact','contact')->name('contact');
 });
+
+
+Route::group(['prefix'=>'hidden-dirr'],function (){
+    Route::controller(AjaxRequestController::class)->group(function (){
+        Route::match(['get','post'],'get-division','getDivision')->name('getDivision');
+    });
+});
+
+
 Route::controller(ClientProductController::class)->group(function (){
     Route::match(['get','post'],'single-view-product/{productSingleID}','index')->name('client.single.product.view');
     Route::match(['get','post'],'shop','show')->name('client.product.list');
@@ -29,6 +39,7 @@ Route::controller(ClientProductController::class)->group(function (){
         Route::match(['get','post'],'checkout','checkOut')->name('order.checkout');
     });
 });
+
 
 
 #.2. Group for Authenticate User Access+++++++++++++++++++++++++++++++++++++++++

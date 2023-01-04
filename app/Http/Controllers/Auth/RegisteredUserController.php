@@ -23,12 +23,13 @@ class RegisteredUserController extends Controller
     {
         $countries = null;
         try {
+            $countries = DB::table('countries')->distinct()->get();
             $roles = DB::table('roles')->where('id','>','2')->distinct()->get();
         }catch (\Throwable $exception)
         {
             return back()->with('error', $exception->getMessage());
         }
-        return view('back-end.auth.register',compact('roles'));
+        return view('back-end.auth.register',compact('roles','countries'));
     }
 
     /**
