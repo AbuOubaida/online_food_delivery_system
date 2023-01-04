@@ -104,8 +104,8 @@
 {{--                                        Country--}}
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" list="icons" name="country" id="country" value="{{old('country')}}" onchange="return Obj.country(this)">
-                                                <datalist id="icons">
+                                                <input class="form-control" list="countrylist" name="country" id="country" value="{{old('country')}}" onchange="return Obj.country(this)">
+                                                <datalist id="countrylist">
                                                     @foreach($countries as $c)
                                                         <option value="{{$c->nicename}}"></option>
                                                     @endforeach
@@ -116,7 +116,13 @@
 {{--                                        Devision--}}
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}"/>
+                                                <input class="form-control" list="divisionlist" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}"/>
+                                                <datalist id="divisionlist">
+{{--                                                    <option></option>--}}
+{{--                                                    @foreach($countries as $c)--}}
+{{--                                                        <option value="{{$c->nicename}}"></option>--}}
+{{--                                                    @endforeach--}}
+                                                </datalist>
                                                 <label for="division">Division</label>
                                             </div>
                                         </div>
