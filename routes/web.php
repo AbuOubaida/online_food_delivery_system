@@ -23,7 +23,9 @@ Route::controller(HomeController::class)->group(function (){
 
 Route::group(['prefix'=>'hidden-dirr'],function (){
     Route::controller(AjaxRequestController::class)->group(function (){
-        Route::match(['get','post'],'get-division','getDivision')->name('getDivision');
+        Route::match(['get','post'],'get-division','getDivision')->name('get.division');
+        Route::match(['get','post'],'get-district','getDistrict')->name('get.district');
+        Route::match(['get','post'],'get-upazila','getUpazila')->name('get.upazila');
     });
 });
 

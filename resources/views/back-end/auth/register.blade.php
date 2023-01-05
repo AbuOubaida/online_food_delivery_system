@@ -104,7 +104,7 @@
 {{--                                        Country--}}
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" list="countrylist" name="country" id="country" value="{{old('country')}}" onchange="return Obj.country(this)">
+                                                <input class="form-control" list="countrylist" name="country" id="country" value="{{old('country')}}" onchange="return Obj.country(this,'divisionlist')">
                                                 <datalist id="countrylist">
                                                     @foreach($countries as $c)
                                                         <option value="{{$c->nicename}}"></option>
@@ -116,9 +116,9 @@
 {{--                                        Devision--}}
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" list="divisionlist" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}"/>
+                                                <input class="form-control" list="divisionlist" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}" onchange="return Obj.division(this,'districtlist')"/>
                                                 <datalist id="divisionlist">
-{{--                                                    <option></option>--}}
+                                                    <option></option>
 {{--                                                    @foreach($countries as $c)--}}
 {{--                                                        <option value="{{$c->nicename}}"></option>--}}
 {{--                                                    @endforeach--}}
@@ -126,15 +126,22 @@
                                                 <label for="division">Division</label>
                                             </div>
                                         </div>
+{{--                                        Districts--}}
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="district" id="district" type="text" placeholder="district" value="{{old('district')}}"/>
+                                                <input class="form-control" list="districtlist" name="district" id="district" type="text" placeholder="district" value="{{old('district')}}" onchange="return Obj.district(this,'upazilalist')"/>
+                                                <datalist id="districtlist">
+                                                    <option></option>
+                                                </datalist>
                                                 <label for="district">District</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="upazila" id="upazila" type="text" placeholder="upazila" value="{{old('upazila')}}"/>
+                                                <input class="form-control" list="upazilalist" name="upazila" id="upazila" type="text" placeholder="upazila" value="{{old('upazila')}}"/>
+                                                <datalist id="upazilalist">
+                                                    <option></option>
+                                                </datalist>
                                                 <label for="upazila">Upazila</label>
                                             </div>
                                         </div>
