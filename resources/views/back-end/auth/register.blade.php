@@ -138,7 +138,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" list="upazilalist" name="upazila" id="upazila" type="text" placeholder="upazila" value="{{old('upazila')}}"/>
+                                                <input class="form-control" list="upazilalist" name="upazila" id="upazila" type="text" placeholder="upazila" onchange="return Obj.upazilla(this,'ziplist','unionlist')" value="{{old('upazila')}}"/>
                                                 <datalist id="upazilalist">
                                                     <option></option>
                                                 </datalist>
@@ -150,23 +150,30 @@
                                     <div class="row md-3">
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="zip_code" id="zip_code" type="number" placeholder="zip code" value="{{old('zip_code')}}"/>
+                                                <input class="form-control" list="ziplist" name="zip_code" id="zip_code" type="number" placeholder="zip code" value="{{old('zip_code')}}"/>
+                                                <datalist id="ziplist">
+                                                    <option></option>
+                                                </datalist>
                                                 <label for="zip_code">Zip Code</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="union" id="union" type="text" placeholder="union" value="{{old('union')}}"/>
+                                                <input class="form-control" list="unionlist" name="union" id="union" type="text" placeholder="union" value="{{old('union')}}"/>
+                                                <datalist id="unionlist">
+                                                    <option></option>
+                                                </datalist>
                                                 <label for="union">Union</label>
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="home" id="home" type="number" placeholder="home" value="{{old('home')}}"/>
-                                                <label for="home">Home No.</label>
+                                                <input class="form-control" name="word_no" id="word_no" type="number" placeholder="word no" value="{{old('word_no')}}"/>
+                                                <label for="word_no">Word No.</label>
                                             </div>
                                         </div>
+
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
                                                 <input class="form-control" name="village" id="village" type="text" placeholder="village" value="{{old('village')}}"/>
@@ -179,8 +186,8 @@
                                     <div class="row md-3">
                                         <div class="col-md-3">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" name="word_no" id="word_no" type="number" placeholder="word no" value="{{old('word_no')}}"/>
-                                                <label for="word_no">Word No.</label>
+                                                <input class="form-control" name="home" id="home" type="number" placeholder="home" value="{{old('home')}}"/>
+                                                <label for="home">Home No.</label>
                                             </div>
                                         </div>
 

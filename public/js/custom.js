@@ -82,6 +82,36 @@ let sourceDir = ""; // for localhost "/OFDS/public"
                     }
                 });
             },
+            //Change Upazilla action
+            upazilla:function (e,actionID,actionID2){
+                let val = $(e).val();
+                let url = window.location.origin + sourceDir + "/hidden-dirr/get-zip";
+                $.getJSON({
+                    headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    url:url,
+                    type:"POST",
+                    data:{"value":val},
+                    success:function (data)
+                    {
+                        // console.log(data)
+                        if (data.error){
+                            // throw data.error.msg;
+                            alert(data.error.msg)
+                        }else{
+                            $("#"+actionID).html("<option></option>");
+                            $(data.zipCods).each(function (){
+                                let zip = "<option value=\"" + this.PostCode + "\"> (" + this.PostCode +")"+ this.SubOffice +"</option>";
+                                $("#"+actionID).append(zip);
+                            });
+                            $("#"+actionID2).html("<option></option>");
+                            $(data.unions).each(function (){
+                                let union = "<option value=\"" + this.name + "\">" + this.name +"</option>";
+                                $("#"+actionID2).append(union);
+                            });
+                        }
+                    }
+                });
+            },
         }
     })
 }(jQuery));

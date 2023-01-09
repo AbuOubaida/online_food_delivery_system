@@ -73,4 +73,26 @@ class AjaxRequestController extends Controller
             ));
         }
     }
+    public function getZip(Request $request)
+    {
+        try {
+            extract($request->post());
+            $upazilla = DB::table('upazilas')->where('name',$value)->select('name','id')->first();
+//            echo $division->id;
+            $zipCods = DB::table('zip_codes')->where('Thana',$upazilla->name)->orWhere('SubOffice',$upazilla->name)->select('PostCode','SubOffice')->get();
+            $unions = DB::table('unions')->where('upazilla_id',$upazilla->id)->select('name','bn_name')->get();
+            echo json_encode(array(
+                'zipCods' => $zipCods,
+                'unions'  => $unions,
+            ));
+        }catch (\Throwable $exception)
+        {
+            echo json_encode(array(
+                'error' => array(
+                    'msg' => $exception->getMessage(),
+                    'code' => $exception->getCode(),
+                )
+            ));
+        }
+    }
 }

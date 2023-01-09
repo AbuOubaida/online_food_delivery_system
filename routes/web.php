@@ -26,6 +26,7 @@ Route::group(['prefix'=>'hidden-dirr'],function (){
         Route::match(['get','post'],'get-division','getDivision')->name('get.division');
         Route::match(['get','post'],'get-district','getDistrict')->name('get.district');
         Route::match(['get','post'],'get-upazila','getUpazila')->name('get.upazila');
+        Route::match(['get','post'],'get-zip','getZip')->name('get.zip');
     });
 });
 
