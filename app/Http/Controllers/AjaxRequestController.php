@@ -77,9 +77,18 @@ class AjaxRequestController extends Controller
     {
         try {
             extract($request->post());
-            $upazilla = DB::table('upazilas')->where('name',$value)->select('name','id')->first();
+            $upazilla = DB::table('upazilas')->where('name',$value)->select('name','id','district_id')->first();
+            $zilla = DB::table('districts')->where('id',$upazilla->district_id)->select('name')->first();
 //            echo $division->id;
-            $zipCods = DB::table('zip_codes')->where('Thana',$upazilla->name)->orWhere('SubOffice',$upazilla->name)->select('PostCode','SubOffice')->get();
+            $zipCods = DB::table('zip_codes')->where('Thana',$upazilla->name)->select('PostCode','SubOffice')->get();
+            if (count($zipCods) <= 0)
+            {
+                $zipCods = DB::table('zip_codes')->where(function ($query) use($upazilla,$zilla){
+                    $query->where('Thana',$upazilla->name);
+                    $query->orWhere('SubOffice',$upazilla->name);
+                    $query->orWhere('District',$zilla->name);
+                })->select('PostCode','SubOffice')->get();
+            }
             $unions = DB::table('unions')->where('upazilla_id',$upazilla->id)->select('name','bn_name')->get();
             echo json_encode(array(
                 'zipCods' => $zipCods,

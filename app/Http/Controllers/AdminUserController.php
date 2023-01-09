@@ -29,7 +29,7 @@ class AdminUserController extends Controller
      */
     public function create(Request $request)
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'admin','title'=>'Add User'];
+        $headerData = ['app'=>'Community Shopping','role'=>'admin','title'=>'Add User'];
         if ($request->isMethod('post'))
         {
             return $this->store($request);
@@ -116,7 +116,7 @@ class AdminUserController extends Controller
      */
     public function show()
     {
-        $headerData = ['app'=>'Online Food Delivery System','role'=>'admin','title'=>'User List'];
+        $headerData = ['app'=>'Community Shopping','role'=>'admin','title'=>'User List'];
         $AuthUser = Auth::user();
         $userList = user::leftJoin('role_user as r_user','users.id','=','r_user.user_id')->leftJoin('roles as r','r_user.role_id','r.id')->where('users.id','!=',$AuthUser->id)->where(function ($query) use ($AuthUser) {
             $query->where('users.district',$AuthUser->district);

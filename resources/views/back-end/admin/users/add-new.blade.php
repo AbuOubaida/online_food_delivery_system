@@ -39,28 +39,48 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
+                                    {{--                                        Country--}}
                                     <div class="col-md-3">
                                         <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="home" id="home" type="number" placeholder="home" value="{{old('home')}}"/>
-                                            <label for="home">Home No.</label>
+                                            <input class="form-control" list="countrylist" name="country" id="country" value="{{old('country')}}" onchange="return Obj.country(this,'divisionlist')">
+                                            <datalist id="countrylist">
+                                                @foreach($countries as $c)
+                                                    <option value="{{$c->nicename}}"></option>
+                                                @endforeach
+                                            </datalist>
+                                            <label for="country">Country</label>
+                                        </div>
+                                    </div>
+                                    {{--                                        Devision--}}
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3 mb-md-0">
+                                            <input class="form-control" list="divisionlist" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}" onchange="return Obj.division(this,'districtlist')"/>
+                                            <datalist id="divisionlist">
+                                                <option></option>
+                                                {{--                                                    @foreach($countries as $c)--}}
+                                                {{--                                                        <option value="{{$c->nicename}}"></option>--}}
+                                                {{--                                                    @endforeach--}}
+                                            </datalist>
+                                            <label for="division">Division</label>
+                                        </div>
+                                    </div>
+                                    {{--                                        Districts--}}
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3 mb-md-0">
+                                            <input class="form-control" list="districtlist" name="district" id="district" type="text" placeholder="district" value="{{old('district')}}" onchange="return Obj.district(this,'upazilalist')"/>
+                                            <datalist id="districtlist">
+                                                <option></option>
+                                            </datalist>
+                                            <label for="district">District</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="village" id="village" type="text" placeholder="village" value="{{old('village')}}"/>
-                                            <label for="village">Village</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="word_no" id="word_no" type="number" placeholder="word no" value="{{old('word_no')}}"/>
-                                            <label for="word_no">Word No.</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="union" id="union" type="text" placeholder="union" value="{{old('union')}}"/>
-                                            <label for="union">Union</label>
+                                            <input class="form-control" list="upazilalist" name="upazila" id="upazila" type="text" placeholder="upazila" onchange="return Obj.upazilla(this,'ziplist','unionlist')" value="{{old('upazila')}}"/>
+                                            <datalist id="upazilalist">
+                                                <option></option>
+                                            </datalist>
+                                            <label for="upazila">Upazila</label>
                                         </div>
                                     </div>
 
@@ -68,40 +88,44 @@
                                 <div class="row md-3">
                                     <div class="col-md-3">
                                         <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="upazila" id="upazila" type="text" placeholder="upazila" value="{{old('upazila')}}"/>
-                                            <label for="upazila">Upazila</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="district" id="district" type="text" placeholder="district" value="{{old('district')}}"/>
-                                            <label for="district">District</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="zip_code" id="zip_code" type="number" placeholder="zip code" value="{{old('zip_code')}}"/>
+                                            <input class="form-control" list="ziplist" name="zip_code" id="zip_code" type="number" placeholder="zip code" value="{{old('zip_code')}}"/>
+                                            <datalist id="ziplist">
+                                                <option></option>
+                                            </datalist>
                                             <label for="zip_code">Zip Code</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="division" id="division" type="text" placeholder="division" value="{{old('division')}}"/>
-                                            <label for="division">Division</label>
+                                            <input class="form-control" list="unionlist" name="union" id="union" type="text" placeholder="union" value="{{old('union')}}"/>
+                                            <datalist id="unionlist">
+                                                <option></option>
+                                            </datalist>
+                                            <label for="union">Union</label>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3 mb-md-0">
+                                            <input class="form-control" name="word_no" id="word_no" type="number" placeholder="word no" value="{{old('word_no')}}"/>
+                                            <label for="word_no">Word No.</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3 mb-md-0">
+                                            <input class="form-control" name="village" id="village" type="text" placeholder="village" value="{{old('village')}}"/>
+                                            <label for="village">Village</label>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <br>
                                 <div class="row md-3">
                                     <div class="col-md-3">
                                         <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" list="icons" name="country" id="country" value="{{old('country')}}">
-                                            <datalist id="icons">
-                                                @foreach($countries as $c)
-                                                    <option value="{{$c->nicename}}"></option>
-                                                @endforeach
-                                            </datalist>
-                                            <label for="country">Country</label>
+                                            <input class="form-control" name="home" id="home" type="number" placeholder="home" value="{{old('home')}}"/>
+                                            <label for="home">Home No.</label>
                                         </div>
                                     </div>
 
